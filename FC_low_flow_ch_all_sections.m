@@ -7,7 +7,7 @@ close all
 
 % 8/22/2016, Gwyn
 
-cd('C:\Works\032430.A0 French Creek\### Transects_Element_1')
+cd('C:\Users\gwynethp\Documents\My Projects\32430A French Creek\Code\Transect_Element_1')
 
 file_name = 'Transects_existing rev_run_1.txt';
 fid = fopen(file_name);
@@ -17,19 +17,20 @@ tr_num = length(tr_name);
 frewind(fid);
 
 fmt = repmat('%f%f',1,tr_num);
-C = textscan(fid,fmt,'delimiter','\t','headerlines',2);
+%C = textscan(fid,fmt,'delimiter','\t','headerlines',2); not working correctly for me (GP) due to differing column lengths
+C = dlmread('Transects_existing rev_run_1.csv',",",2,0);
 fclose(fid);
 
-% C includes all transects (34) information with some tailing NaN
+% C includes all transects (34) information with some tailing NaN. We will not use the first 6 transect output - they have separate cross-section requirements.
 zB = 4.3;  % zB: elevation of Bench
 % bWid = 10; % bottom width
-bWid = 7; % bottom width
+bWid = 2; % bottom width
 
-for i = 1:tr_num
+for i = 1:tr_num 
     
     
     %%
-    x = C{2*i-1}; z = C{2*i};
+    x = C(:,2*i-1); z = C(:,2*i);
     [zC, Ith] = min(z);  % identify lowest point value and index: z(Ith) = zC
     %xC = x(Ith);         % x at thalweg (xC)
     
