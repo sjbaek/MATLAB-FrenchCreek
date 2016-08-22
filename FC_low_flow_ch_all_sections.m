@@ -5,6 +5,8 @@ close all
 % Low Flow channel configuration: French Creek
 % 10/22/2015, sjb
 
+% 8/22/2016, Gwyn
+
 cd('C:\Works\032430.A0 French Creek\### Transects_Element_1')
 
 file_name = 'Transects_existing rev_run_1.txt';
