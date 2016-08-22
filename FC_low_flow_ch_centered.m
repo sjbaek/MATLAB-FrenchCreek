@@ -5,6 +5,8 @@ close all
 % Low Flow channel configuration: French Creek
 % 10/22/2015, sjb
 
+% 8/22/2016, GP
+
 cd('C:\Works\032430.A0 French Creek\NHC model\18b\Transects_Element_1')
 tr_name = '10746_23';
 file_name = sprintf('TR_%s.txt',tr_name);
