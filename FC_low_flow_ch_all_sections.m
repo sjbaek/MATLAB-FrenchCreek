@@ -6,7 +6,7 @@ close all
 % 10/22/2015, sjb
 
 % 8/22/2016, Gwyn: Bottom width = 2, changed textscan to dlmread, new jpg and csv outputs
-% 8/26/2016, GP: Bottom width = 7, 
+% 8/26/2016, GP: Bottom width = 7, added notch at depth -1ft, new jpg and csv outputs
 
 cd('C:\Users\gwynethp\Documents\My Projects\32430A French Creek\Code\Transect_Element_1')
 
