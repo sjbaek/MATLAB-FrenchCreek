@@ -5,7 +5,8 @@ close all
 % Low Flow channel configuration: French Creek
 % 10/22/2015, sjb
 
-% 8/22/2016, Gwyn
+% 8/22/2016, Gwyn: Bottom width = 2, changed textscan to dlmread, new jpg and csv outputs
+% 8/26/2016, GP: Bottom width = 7, added notch at depth -1ft, new jpg and csv outputs
 
 cd('C:\Users\gwynethp\Documents\My Projects\32430A French Creek\Code\Transect_Element_1')
 
@@ -24,7 +25,8 @@ fclose(fid);
 % C includes all transects (34) information with some tailing NaN. We will not use the first 6 transect output - they have separate cross-section requirements.
 zB = 4.3;  % zB: elevation of Bench
 % bWid = 10; % bottom width
-bWid = 2; % bottom width
+bWid = 7; % bottom width
+nWid = 2; % notch width
 
 for i = 1:tr_num 
     
@@ -64,6 +66,13 @@ for i = 1:tr_num
     x1 = xC-(2*(zB-zC)+bWid/2);
     x2 = xC+(2*(zB-zC)+bWid/2);
     xNew = [x1 xC-bWid/2 xC+bWid/2 x2];
+    
+    %% new "notch" in narrow channel: trapezoidal shape
+    zC_notch = zC - 1; %lowest point of notch is 1ft down
+    zNew_notch = [zB zC zC zC_notch zC_notch zC zC zB];
+    x1_notch = xC-(2*(zC-zC_notch)+nWid/2);
+    x2_notch = xC+(2*(zC-zC_notch)+nWid/2);
+    xNew_notch = [x1 xC-bWid/2 x1_notch xC-nWid/2 xC+nWid/2 x2_notch xC+bWid/2 x2];
     
     %% remove old section
     %  1) z < zB
@@ -108,8 +117,8 @@ for i = 1:tr_num
     end
     
     %% splicing
-    xN = [xL; v_LBank; xNew'; v_RBank; xR];
-    zN = [zL; z_bankL; zNew'; z_bankR; zR];
+    xN = [xL; v_LBank; xNew_notch'; v_RBank; xR];
+    zN = [zL; z_bankL; zNew_notch'; z_bankR; zR];
     hold on
     plot(xN,zN,'r.-')
     grid
